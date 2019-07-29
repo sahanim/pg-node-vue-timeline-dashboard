@@ -6,7 +6,6 @@
 
   2.1 "git clone https://github.com/sahanim/pg-node-vue-timeline-dashboard.git"
 
-  // Sequelize dependency for db migration
   2.2 "npm install -g sequelize-cli
 
 
