@@ -1,0 +1,43 @@
+{
+    "data": {
+        "moment_history": [
+            {
+                "start": "2017-10-01T23:28:00.000+02:00",
+                "end": "2017-10-02T08:47:28.325+02:00",
+                "moment_definition_id": "home",
+                "duration": 33568
+            }, ...
+        ],
+        "event_history": [
+            {
+                "type": "Stationary",
+                "start": "2017-10-01T23:28:00+02:00",
+                "end": "2017-10-02T08:47:28.325000+02:00",
+                "location": {
+                    "significance": "home"
+                },
+                "duration": 33568
+            },
+            {
+                "type": "Transport",
+                "start": "2017-09-15T14:05:19.655000+07:00",
+                "end": "2017-09-15T14:30:33+07:00",
+                "mode": "biking",
+                "distance": 4108,
+                "duration" : 1514
+            }, ...
+        ]
+    },
+    "transport_aggregate": {
+        "biking": [            
+            {
+                "type": "Transport",
+                "start": "2017-09-15T14:05:19.655000+07:00",
+                "end": "2017-09-15T14:30:33+07:00",
+                "mode": "biking",
+                "distance": 4108,
+                "duration": 1514
+            }
+        ], ...        
+    }
+}
