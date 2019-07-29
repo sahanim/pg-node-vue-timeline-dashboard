@@ -1,6 +1,6 @@
 Before starting ensure nodejs and postgres are installed on the machine with "postgres" as a database.
 
-Download repo at 
+Download repo
 
 Cd path/to/repo
 
