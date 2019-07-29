@@ -1,6 +1,6 @@
 //Setup
 
-1. Before starting ensure nodejs and postgres are installed on the machine with "postgres" as a database.
+1. Before starting ensure nodejs and postgres are installed on the machine with "postgres" as a database running on port 5432
 
 2. Start terminal
 
