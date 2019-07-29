@@ -21,6 +21,11 @@ class Events {
             EventData
         }))
     }
+    static list(req, res) {
+        return Event
+            .findAll()
+            .then(events => res.status(200).send(events));
+    }
 }
 
 export default Events;

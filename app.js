@@ -9,7 +9,7 @@ import underscore from 'underscore';
 import cors from 'cors';
 
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = 3001;
 const app = express() 
 const server = http.createServer(app);
 
@@ -28,20 +28,8 @@ server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-// https.get('https://s3-eu-west-1.amazonaws.com/sentiance.solutions/datasets/public/user1.json', (resp) => {
-//     let data = '';  
-//     resp.on('data', (chunk) => {
-//     data += chunk;
-//     });
-//     resp.on('end', () => {
-//     });
-// }).on("error", (err) => {
-// });
-
 axios.get('https://s3-eu-west-1.amazonaws.com/sentiance.solutions/datasets/public/user1.json')
   .then(response => {
-
-
     const outputData = {
         "moments": response.data.data.user.moment_history,
         "events": response.data.data.user.event_history
@@ -57,14 +45,35 @@ axios.get('https://s3-eu-west-1.amazonaws.com/sentiance.solutions/datasets/publi
             
         }
     )})
+
+    outputData.events = Object.keys(outputData.events).map(key => {
+        delete outputData.events[key].analysis_type
+        delete outputData.events[key].latitude
+        delete outputData.events[key].longitude
+        delete outputData.events[key].waypoints
+        delete outputData.events[key].trajectory
+        return Object.assign({}, outputData.events[key], {
+            start: new Date(outputData.events[key].start),
+            end: new Date(outputData.events[key].end),
+            duration: ( - (new Date(outputData.events[key].start) - new Date(outputData.events[key].end))),
+            type: outputData.events[key].type,
+            location: outputData.events[key].location,
+            distance: outputData.events[key].distance,
+            mode: outputData.events[key].mode
+        }
+    )})
     
     outputData.moments.sort(function(a,b){
         return new Date(b.start) - new Date(a.start);
       });
 
+    outputData.events.sort(function(a,b){
+        return new Date(b.start) - new Date(a.start);
+      });
+
 
     outputData.moments.forEach((moment) =>{
-        axios.post('http://127.0.0.1:3000/api/moments', moment,
+        axios.post('http://127.0.0.1:3001/api/moments', moment,
           {
             headers: {
              'Content-Type': 'application/json'
@@ -72,6 +81,15 @@ axios.get('https://s3-eu-west-1.amazonaws.com/sentiance.solutions/datasets/publi
           }
         )
     })    
+    outputData.events.forEach((event) =>{
+        axios.post('http://127.0.0.1:3001/api/events', event,
+          {
+            headers: {
+             'Content-Type': 'application/json'
+            }
+          }
+        )
+    })   
   })
   .catch(error => {
     console.log(error);

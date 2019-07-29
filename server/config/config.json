@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "mradul",
-    "password": "password",
-    "database": "sentiance",
+    "username": "postgres",
+    "password": "",
+    "database": "postgres",
     "host": "127.0.0.1",
-    "port": 5430,
+    "port": 5432,
     "dialect": "postgres"
   },
   "test": {

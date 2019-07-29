@@ -11,4 +11,5 @@ export default (app) => {
     app.post('/api/moments', Moments.addMoment); 
     app.post('/api/events', Events.addEvent);
     app.get('/api/moments', Moments.list);
+    app.get('/api/events', Events.list);
 };
