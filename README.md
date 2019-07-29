@@ -1,17 +1,17 @@
 Before starting ensure nodejs and postgres are installed on the machine with "postgres" as a database.
 
-Download repo
+download repo
 
-Cd path/to/repo
+cd path/to/repo
 
-Npm install
+npm install
 
-Npm Sequelize db:migrate
+npm sequelize db:migrate
 
-Npm start
+npm start
 
-Cd client
+nd client
 
-Npm install
+npm install
 
-Npm run serve
+npm run serve
