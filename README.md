@@ -6,11 +6,13 @@ cd path/to/repo
 
 npm install
 
-npm sequelize db:migrate
+npx sequelize-cli db:migrate --url 'postgres://<username>:<password>@localhost:5432/postgres'
 
 npm start
 
-nd client
+start new terminal window
+
+cd client
 
 npm install
 
