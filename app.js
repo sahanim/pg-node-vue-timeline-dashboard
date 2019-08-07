@@ -42,10 +42,23 @@ axios.get('https://s3-eu-west-1.amazonaws.com/sentiance.solutions/datasets/publi
             end: new Date(outputData.moments[key].end),
             moment_definition_id: outputData.moments[key].moment_definition_id,
             duration: ( - (new Date(outputData.moments[key].start) - new Date(outputData.moments[key].end))),
-            
         }
     )})
+    
+    outputData.moments.sort(function(a,b){
+        return new Date(b.start) - new Date(a.start);
+      });
 
+    
+    outputData.moments.forEach((moment) =>{
+        axios.post('http://127.0.0.1:3001/api/moments', moment,
+          {
+            headers: {
+             'Content-Type': 'application/json'
+            }
+          }
+        )
+    })
     outputData.events = Object.keys(outputData.events).map(key => {
         delete outputData.events[key].analysis_type
         delete outputData.events[key].latitude
@@ -62,25 +75,10 @@ axios.get('https://s3-eu-west-1.amazonaws.com/sentiance.solutions/datasets/publi
             mode: outputData.events[key].mode
         }
     )})
-    
-    outputData.moments.sort(function(a,b){
-        return new Date(b.start) - new Date(a.start);
-      });
-
     outputData.events.sort(function(a,b){
         return new Date(b.start) - new Date(a.start);
       });
 
-
-    outputData.moments.forEach((moment) =>{
-        axios.post('http://127.0.0.1:3001/api/moments', moment,
-          {
-            headers: {
-             'Content-Type': 'application/json'
-            }
-          }
-        )
-    })    
     outputData.events.forEach((event) =>{
         axios.post('http://127.0.0.1:3001/api/events', event,
           {
@@ -89,7 +87,45 @@ axios.get('https://s3-eu-west-1.amazonaws.com/sentiance.solutions/datasets/publi
             }
           }
         )
-    })   
+    })
+
+    // let aggregate_items = []
+    // for(let i = 0; i < outputData.events.length; i++){
+    //     if(outputData.events[i].mode != undefined){
+    //         aggregate_items.push(outputData.events[i].mode);
+    //    }
+    // }
+    // let uniq_items = [...new Set(aggregate_items)];
+    // console.log('uniq_items: ', uniq_items)
+
+    // let aggregates = {}
+    // for(let j = 0; j < uniq_items.length; j++){
+    //     aggregates[uniq_items[j]] = { [uniq_items[j]]: []}
+    // }
+    
+    // console.log('aggregates: ', aggregates)
+    
+    // for(let k = 0; k < outputData.events.length ; k++){
+    //     if(outputData.events[k].mode != undefined){
+    //         aggregates[outputData.events[k].mode][outputData.events[k].mode].push(outputData.events[k])
+    //    }
+    // }
+    // console.log('train: ', aggregates['train']['train'])
+
+    // axios.post('http://127.0.0.1:3001/api/aggregates', aggregates,
+    //       {
+    //         headers: {
+    //          'Content-Type': 'application/json'
+    //         }
+    //       }
+    //     ).catch(error => {
+    //         console.log(error);
+    //       });
+    
+    // uniq_items.forEach((item) =>{
+    //     console.log('item: ' , item)
+        
+    // })
   })
   .catch(error => {
     console.log(error);

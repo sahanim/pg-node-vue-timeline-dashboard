@@ -1,5 +1,6 @@
 import Moments from '../controllers/moment';
 import Events from '../controllers/event';
+import Aggregates from '../controllers/aggregate'
 
 
 export default (app) => {
@@ -10,6 +11,9 @@ export default (app) => {
 
     app.post('/api/moments', Moments.addMoment); 
     app.post('/api/events', Events.addEvent);
+    app.post('api/aggregates', Aggregates.addAggregate)
+    
     app.get('/api/moments', Moments.list);
     app.get('/api/events', Events.list);
+    
 };
