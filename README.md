@@ -18,7 +18,7 @@
 
   1.2 "npm install"
 
-  1.3 "npx sequelize-cli db:migrate --url 'postgres://<username>:<password>@localhost:5432/postgres'"
+  1.3 "npx sequelize-cli db:migrate --url 'postgres://username:password@localhost:5432/postgres'"
 
   1.4 "npm start"
   
